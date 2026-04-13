@@ -25,7 +25,7 @@ export async function getLatestArticles(limit = 30): Promise<Article[]> {
 
   const data = await res.json();
 
-  return data.items.map((item: any) => ({
+  const articles: Article[] = data.items.map((item: any) => ({
     id: item.id,
     name: item.fieldData.name,
     slug: item.fieldData.slug,
@@ -33,4 +33,13 @@ export async function getLatestArticles(limit = 30): Promise<Article[]> {
     summary: item.fieldData["short-summary"] ?? "",
     publishingDate: item.fieldData["publishing-date"],
   }));
+
+  // Sort by publishing-date descending so list order matches the "Xh ago" display
+  articles.sort(
+    (a, b) =>
+      new Date(b.publishingDate).getTime() -
+      new Date(a.publishingDate).getTime()
+  );
+
+  return articles;
 }
