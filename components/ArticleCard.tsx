@@ -28,7 +28,7 @@ export default function ArticleCard({
 }) {
   return (
     <a
-      href={`https://thecatholicherald.com/${article.slug}?utm_source=linkinbio&utm_medium=social&utm_content=pos_${position}`}
+      href={`https://thecatholicherald.com/article/${article.slug}?utm_source=linkinbio&utm_medium=social&utm_content=pos_${position}`}
       target="_blank"
       rel="noopener noreferrer"
       className="flex gap-3 py-3 hover:bg-white/60 transition-colors rounded-md"
