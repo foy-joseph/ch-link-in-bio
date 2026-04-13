@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   title: "The Catholic Herald — Latest Stories",
   description:
     "The latest news and analysis from The Catholic Herald.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
     title: "The Catholic Herald — Latest Stories",
     description:
