@@ -34,13 +34,13 @@ export default function ArticleCard({
       className="flex gap-3 py-3 hover:bg-white/60 transition-colors rounded-md"
     >
       {article.imageUrl && (
-        <div className="relative w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-[#dadada]">
+        <div className="relative w-28 flex-shrink-0 rounded-md overflow-hidden bg-[#dadada] aspect-[1.91/1]">
           <Image
             src={article.imageUrl}
             alt={article.name}
             fill
             className="object-cover"
-            sizes="80px"
+            sizes="112px"
           />
         </div>
       )}

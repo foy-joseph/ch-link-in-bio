@@ -29,7 +29,8 @@ export async function POST(req: NextRequest) {
 
   if (!res.ok) {
     const text = await res.text();
-    console.error("CM error:", text);
+    console.error("CM error:", res.status, text);
+    console.error("CM key length:", CM_API_KEY?.length, "starts:", CM_API_KEY?.slice(0, 4));
     return NextResponse.json({ error: "Subscribe failed" }, { status: 500 });
   }
 
