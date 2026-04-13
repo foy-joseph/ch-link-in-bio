@@ -4,14 +4,14 @@ import ArticleCard from "@/components/ArticleCard";
 export const revalidate = 300;
 
 export default async function Home() {
-  const articles = await getLatestArticles(30);
+  const articles = await getLatestArticles(50);
 
   return (
-    <div className="min-h-dvh flex flex-col bg-[#111]">
+    <div className="min-h-dvh flex flex-col bg-[#111] max-w-lg mx-auto w-full">
       {/* Header */}
       <header className="flex flex-col items-center pt-8 pb-4 px-4">
         <div className="w-16 h-16 mb-3 rounded-full overflow-hidden bg-white/10 flex items-center justify-center">
-          <img src="/ch-logo.svg" alt="The Catholic Herald" className="w-10 h-10" />
+          <img src="/ch-logo.jpg" alt="The Catholic Herald" className="w-full h-full object-cover" />
         </div>
         <h1 className="text-white text-lg font-bold tracking-tight">
           The Catholic Herald

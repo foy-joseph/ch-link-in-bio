@@ -22,7 +22,7 @@ function timeAgo(dateString: string): string {
 export default function ArticleCard({ article }: { article: Article }) {
   return (
     <a
-      href={`https://thecatholicherald.com/article/${article.slug}`}
+      href={`https://thecatholicherald.com/${article.slug}`}
       target="_blank"
       rel="noopener noreferrer"
       className="flex gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors"
