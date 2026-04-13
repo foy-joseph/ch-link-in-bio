@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EB_Garamond } from "next/font/google";
 import Script from "next/script";
+import ClickTracker from "@/components/ClickTracker";
 import "./globals.css";
 
 const garamond = EB_Garamond({
@@ -44,7 +45,10 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="bg-[#f6f4ef] text-[#222]">{children}</body>
+      <body className="bg-[#f6f4ef] text-[#222]">
+        <ClickTracker />
+        {children}
+      </body>
     </html>
   );
 }

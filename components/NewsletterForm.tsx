@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -20,6 +26,10 @@ export default function NewsletterForm() {
       if (res.ok) {
         setStatus("success");
         setEmail("");
+        window.gtag?.("event", "newsletter_signup", {
+          event_category: "link_in_bio",
+          event_label: "newsletter_form",
+        });
       } else {
         setStatus("error");
       }
