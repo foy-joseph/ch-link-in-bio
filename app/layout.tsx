@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { EB_Garamond } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
-const inter = Inter({
+const garamond = EB_Garamond({
   subsets: ["latin"],
+  variable: "--font-garamond",
 });
 
 export const metadata: Metadata = {
@@ -24,8 +26,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.className}>
-      <body>{children}</body>
+    <html lang="en" className={garamond.variable}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-CK7F829VY4"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-CK7F829VY4', {
+              page_title: 'Link in Bio',
+              content_group: 'link-in-bio'
+            });
+          `}
+        </Script>
+      </head>
+      <body className="bg-[#f6f4ef] text-[#222]">{children}</body>
     </html>
   );
 }

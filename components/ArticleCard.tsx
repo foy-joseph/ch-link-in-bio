@@ -19,16 +19,22 @@ function timeAgo(dateString: string): string {
   });
 }
 
-export default function ArticleCard({ article }: { article: Article }) {
+export default function ArticleCard({
+  article,
+  position,
+}: {
+  article: Article;
+  position: number;
+}) {
   return (
     <a
-      href={`https://thecatholicherald.com/${article.slug}`}
+      href={`https://thecatholicherald.com/${article.slug}?utm_source=linkinbio&utm_medium=social&utm_content=pos_${position}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors"
+      className="flex gap-3 py-3 hover:bg-white/60 transition-colors rounded-md"
     >
       {article.imageUrl && (
-        <div className="relative w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-white/10">
+        <div className="relative w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-[#dadada]">
           <Image
             src={article.imageUrl}
             alt={article.name}
@@ -39,10 +45,10 @@ export default function ArticleCard({ article }: { article: Article }) {
         </div>
       )}
       <div className="flex flex-col justify-center min-w-0 flex-1">
-        <h2 className="text-[15px] font-semibold leading-tight text-white line-clamp-3">
+        <h2 className="font-serif text-[15px] font-semibold leading-tight text-[#222] line-clamp-3">
           {article.name}
         </h2>
-        <span className="text-xs text-white/50 mt-1">
+        <span className="text-xs text-[#7a7979] mt-1">
           {timeAgo(article.publishingDate)}
         </span>
       </div>
