@@ -34,7 +34,7 @@ export default function ArticleCard({
       className="flex gap-3 py-3 hover:bg-white/60 transition-colors rounded-md"
     >
       {article.imageUrl && (
-        <div className="relative w-28 flex-shrink-0 rounded-md overflow-hidden bg-[#dadada] aspect-[1.91/1]">
+        <div className="relative w-28 flex-shrink-0 overflow-hidden bg-[#dadada] aspect-[1.91/1]">
           <Image
             src={article.imageUrl}
             alt={article.name}
