@@ -17,11 +17,16 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
   },
+  icons: {
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "The Catholic Herald — Latest Stories",
     description:
       "The latest news and analysis from The Catholic Herald.",
     type: "website",
+    images: [{ url: "/og-image.jpg", width: 1024, height: 1024 }],
   },
 };
 
