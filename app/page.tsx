@@ -11,16 +11,16 @@ export default async function Home() {
     <div className="min-h-dvh flex flex-col max-w-lg mx-auto w-full">
       {/* Header */}
       <header className="flex flex-col items-center pt-8 pb-2 px-4">
-        <div className="w-16 h-16 mb-3 rounded-full overflow-hidden">
+        <a href="https://thecatholicherald.com?utm_source=linkinbio&utm_medium=social" target="_blank" rel="noopener noreferrer" className="w-16 h-16 mb-3 rounded-full overflow-hidden block">
           <img
             src="/ch-logo.jpg"
             alt="The Catholic Herald"
             className="w-full h-full object-cover"
           />
-        </div>
-        <h1 className="font-serif text-xl font-semibold tracking-tight text-[#222]">
+        </a>
+        <a href="https://thecatholicherald.com?utm_source=linkinbio&utm_medium=social" target="_blank" rel="noopener noreferrer" className="font-serif text-xl font-semibold tracking-tight text-[#222] hover:text-[#db3334] transition-colors">
           The Catholic Herald
-        </h1>
+        </a>
         <p className="text-[#7a7979] text-xs mt-1">
           Catholic truth in public life since 1888
         </p>
