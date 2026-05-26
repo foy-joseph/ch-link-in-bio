@@ -1,11 +1,14 @@
-import { getLatestArticles } from "@/lib/webflow";
+import { getCurrentMagazine, getLatestArticles } from "@/lib/webflow";
 import ArticleCard from "@/components/ArticleCard";
-import NewsletterForm from "@/components/NewsletterForm";
+import MagazineHero from "@/components/MagazineHero";
 
 export const revalidate = 300;
 
 export default async function Home() {
-  const articles = await getLatestArticles(50);
+  const [articles, magazine] = await Promise.all([
+    getLatestArticles(50),
+    getCurrentMagazine(),
+  ]);
 
   return (
     <div className="min-h-dvh flex flex-col max-w-lg mx-auto w-full">
@@ -45,8 +48,8 @@ export default async function Home() {
         </div>
       </header>
 
-      {/* Newsletter signup */}
-      <NewsletterForm />
+      {/* Current magazine issue */}
+      {magazine && <MagazineHero magazine={magazine} />}
 
       {/* Divider */}
       <div className="px-4 pb-2 pt-1">
