@@ -1,15 +1,15 @@
 import Image from "next/image";
 import type { Magazine } from "@/lib/webflow";
 
-const SUBSCRIBE_URL = "https://thecatholicherald.com/subscribe?utm_source=linkinbio&utm_medium=social&utm_campaign=magazine_cover";
-
 export default function MagazineHero({ magazine }: { magazine: Magazine }) {
+  const issueUrl = `https://thecatholicherald.com/magazine/${magazine.slug}?utm_source=linkinbio&utm_medium=social&utm_campaign=magazine_cover`;
+
   return (
     <section className="px-4 pb-4">
       <div className="flex gap-3 items-stretch bg-white rounded-lg p-3 border border-[#dadada]">
         {magazine.coverImageUrl && (
           <a
-            href={SUBSCRIBE_URL}
+            href={issueUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 block w-[88px] h-[120px] relative overflow-hidden rounded-sm shadow-sm"
@@ -36,12 +36,12 @@ export default function MagazineHero({ magazine }: { magazine: Magazine }) {
             </p>
           </div>
           <a
-            href={SUBSCRIBE_URL}
+            href={issueUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center px-3 py-2 rounded-lg bg-[#db3334] text-white text-sm font-semibold hover:bg-[#c42d2e] transition-colors mt-2"
           >
-            Subscribe Now
+            Read Issue
           </a>
         </div>
       </div>

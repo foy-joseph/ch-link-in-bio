@@ -55,7 +55,7 @@ export async function getLatestArticles(limit = 30): Promise<Article[]> {
 
 export async function getCurrentMagazine(): Promise<Magazine | null> {
   const res = await fetch(
-    `https://api.webflow.com/v2/collections/${MAGAZINES_COLLECTION_ID}/items?limit=1&sortBy=lastPublished&sortOrder=desc`,
+    `https://api.webflow.com/v2/collections/${MAGAZINES_COLLECTION_ID}/items?limit=1&sortBy=createdOn&sortOrder=desc`,
     {
       headers: {
         Authorization: `Bearer ${process.env.WEBFLOW_API_TOKEN}`,
