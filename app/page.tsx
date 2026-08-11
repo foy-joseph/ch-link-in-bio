@@ -1,10 +1,22 @@
 import { getCurrentMagazine, getLatestArticles } from "@/lib/webflow";
 import ArticleCard from "@/components/ArticleCard";
 import MagazineHero from "@/components/MagazineHero";
+import PinnedCard from "@/components/PinnedCard";
 
 export const revalidate = 300;
 
+// Pinned campaign slot — auto-removed once `until` passes.
+// Exodus 90 — St Michael's Lent (paid placement). Ends Wed 19 Aug 2026 (BST).
+const PINNED = {
+  title: "St. Michael's Lent — join Fr. Columba Jordan, CFR",
+  imageUrl:
+    "https://cdn.prod.website-files.com/683ed37ff077394405011c78/6a79d434f432f330ecc5cda6_E90-SML-Web-Banner.jpg",
+  href: "https://ex90.cc/4fXCBez",
+  until: "2026-08-20T00:00:00+01:00",
+};
+
 export default async function Home() {
+  const showPinned = Date.now() < new Date(PINNED.until).getTime();
   const [articles, magazine] = await Promise.all([
     getLatestArticles(50),
     getCurrentMagazine(),
@@ -62,6 +74,13 @@ export default async function Home() {
       {/* Articles list */}
       <main className="flex-1 px-4">
         <div className="divide-y divide-[#dadada]">
+          {showPinned && (
+            <PinnedCard
+              title={PINNED.title}
+              imageUrl={PINNED.imageUrl}
+              href={PINNED.href}
+            />
+          )}
           {articles.map((article, i) => (
             <ArticleCard key={article.id} article={article} position={i + 1} />
           ))}
