@@ -1,3 +1,7 @@
+// The newest articles and the current issue, read from the Catholic Herald
+// site's own feed (thecatholicherald.com/api/link-in-bio). This file used to
+// call the Webflow CMS API; Webflow closed on 1 Oct 2026. The shapes below are
+// unchanged so the page did not have to be.
 export interface Article {
   id: string;
   name: string;
@@ -15,68 +19,25 @@ export interface Magazine {
   coverImageAlt: string | null;
 }
 
-const COLLECTION_ID = "683ed37ff077394405011d03";
-const MAGAZINES_COLLECTION_ID = "683ed37ff077394405011ce2";
+const FEED_URL = `${process.env.NEXT_PUBLIC_SITE_URL || "https://thecatholicherald.com"}/api/link-in-bio`;
+
+async function feed(): Promise<{ articles: Article[]; magazine: Magazine | null }> {
+  const res = await fetch(FEED_URL, { next: { revalidate: 300 } });
+  if (!res.ok) {
+    throw new Error(`Catholic Herald feed error: ${res.status}`);
+  }
+  return res.json();
+}
 
 export async function getLatestArticles(limit = 30): Promise<Article[]> {
-  const res = await fetch(
-    `https://api.webflow.com/v2/collections/${COLLECTION_ID}/items?limit=${limit}&sortBy=lastPublished&sortOrder=desc`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.WEBFLOW_API_TOKEN}`,
-      },
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error(`Webflow API error: ${res.status}`);
-  }
-
-  const data = await res.json();
-
-  const articles: Article[] = data.items.map((item: any) => ({
-    id: item.id,
-    name: item.fieldData.name,
-    slug: item.fieldData.slug,
-    imageUrl: item.fieldData["article-image"]?.url ?? null,
-    summary: item.fieldData["short-summary"] ?? "",
-    publishingDate: item.fieldData["publishing-date"],
-  }));
-
-  // Sort by publishing-date descending so list order matches the "Xh ago" display
-  articles.sort(
-    (a, b) =>
-      new Date(b.publishingDate).getTime() -
-      new Date(a.publishingDate).getTime()
-  );
-
-  return articles;
+  const { articles } = await feed();
+  return articles
+    .slice()
+    .sort((a, b) => new Date(b.publishingDate).getTime() - new Date(a.publishingDate).getTime())
+    .slice(0, limit);
 }
 
 export async function getCurrentMagazine(): Promise<Magazine | null> {
-  const res = await fetch(
-    `https://api.webflow.com/v2/collections/${MAGAZINES_COLLECTION_ID}/items?limit=1&sortBy=createdOn&sortOrder=desc`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.WEBFLOW_API_TOKEN}`,
-      },
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error(`Webflow API error: ${res.status}`);
-  }
-
-  const data = await res.json();
-  const item = data.items?.[0];
-  if (!item) return null;
-
-  const cover = item.fieldData["magazine-cover-image"];
-  return {
-    id: item.id,
-    name: item.fieldData.name,
-    slug: item.fieldData.slug,
-    coverImageUrl: cover?.url ?? null,
-    coverImageAlt: cover?.alt ?? null,
-  };
+  const { magazine } = await feed();
+  return magazine;
 }
